@@ -14,5 +14,13 @@ export default defineConfig({
       ],
     },
   ],
+  mfsu:{},
   fastRefresh: {},
+  proxy: {
+    '/api': {
+      target: 'http://mystop.top:8001',
+      pathRewrite: { '^/api': '' },
+      changeOrigin: true
+    }
+  },
 });

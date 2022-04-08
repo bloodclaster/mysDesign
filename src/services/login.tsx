@@ -1,14 +1,15 @@
-import request from '@/utils/request';
+// import request from '@/utils/request';
+import request from 'umi-request';
 
 export async function register(data: {
   email: string,
   head: number,
-  id: number,
+  // id: number,
   manager: number,
   nickname: string,
   password: string,
 }) {
-  return request('/user/register', {
+  return request('/api/user/register', {
     method: 'POST',
     data
   });
@@ -17,8 +18,9 @@ export async function register(data: {
 export async function login(data: {
   email: string,
   password: string,
+  manager: number
 }) {
-  return request('/user/login', {
+  return request('/api/user/login', {
     method: 'POST',
     data
   });
@@ -30,7 +32,7 @@ export async function update(data: {
   nickname: string,
   password: string,
 }) {
-  return request('/user/update', {
+  return request('/api/user/update', {
     method: 'POST',
     data
   });

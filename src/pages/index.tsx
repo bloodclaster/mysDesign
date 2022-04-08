@@ -2,7 +2,7 @@ import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import { history } from 'umi';
 import BasicLayout from '@/layouts';
-import { register } from '../services/login'
+import { register, login, update } from '../services/login'
 const loginPath = '/user/login';
 
 export const initialStateConfig = {
@@ -22,17 +22,17 @@ export async function getInitialState() {
 }
 
 export default (props) => {
-  // console.log(props)
-  register({
-    "email": "123@qq.com",
-    "head": 0,
-    "id": 0,
-    "manager": 0,
-    "nickname": "测试，密码为123",
-    "password": "123"
-  }).then((e) => {
-      console.log(e)
-    })
+  console.log(props)
+  // register({
+  //   "email": "123@qq.com",
+  //   "head": 0,
+  //   "id": 0,
+  //   "manager": 0,
+  //   "nickname": "测试，密码为123",
+  //   "password": "123"
+  // }).then((e) => {
+  //   console.log(e)
+  // })
   return <BasicLayout {...props} />
 
 }
