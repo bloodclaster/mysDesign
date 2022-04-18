@@ -27,7 +27,7 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
-const errorHandler = (error: { response: any; code: any; msg: any; request: any; }) => {
+const errorHandler = (error) => {
   const { response, code, msg, request } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
@@ -43,19 +43,19 @@ const errorHandler = (error: { response: any; code: any; msg: any; request: any;
       }
     }
   }
-   else if (!response) {
+  else if (!response) {
     notification.error({
       description: msg || codeMessage[code],
       message: '出现错误',
     });
   }
-  if (request.url == "/api/sys/auth/login" ) {
+  if (request && request.url == "/api/user/login") {
     return {
       code,
       msg
     }
   }
-  return  {
+  return {
     code,
     msg
   }
@@ -72,7 +72,7 @@ const request = extend({
 request.interceptors.request.use((url, options) => {
   options.headers = {
     ...options.headers,
-    Authorization: `${getToken()}`,
+    token: `${getToken()}`,
   };
   return {
     url,
@@ -83,7 +83,8 @@ request.interceptors.request.use((url, options) => {
 // 响应拦截
 request.interceptors.response.use(async response => {
   const res = await response.clone().json();
-  return res.code === 200 ? res : Promise.reject(res);
+  return res
+  // return res.code === 200 ? res : Promise.reject(res);
 });
 
 export default request;

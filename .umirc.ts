@@ -1,26 +1,30 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
+  hash: true,
   nodeModulesTransform: {
     type: 'none',
   },
   routes: [
-    { path:'/login',component: '@/pages/login'},
+    { path: '/login', component: 'login' },
+    { path: '/demo', component: 'demo' },
+    { path: '/home', component: 'home' },
+    { path: '/user', component: 'user' },
+    { path: '/home/video', component: 'home/videoPage' },
     {
-      path: '/', component: '@/pages/index',
+      path: '/', component: 'index',
       routes: [
-        // { path: '/list', component: 'list' },
-        // { path: '/admin', component: 'admin' },
-      ],
+        { path: '/home', component: 'home' },
+      ]
     },
   ],
-  mfsu:{},
-  fastRefresh: {},
   proxy: {
     '/api': {
-      target: 'http://mystop.top:8001',
+      target: 'http://101.133.144.44:8001',
       pathRewrite: { '^/api': '' },
       changeOrigin: true
     }
   },
+  mfsu: {},
+  fastRefresh: {},
 });

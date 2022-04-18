@@ -1,9 +1,8 @@
-
 import { useState } from 'react';
-import { Modal, Row, Col, Input, Radio, Button, Tooltip } from 'antd';
+import { Modal, Row, Col, Input, Radio, Button, Tooltip, Avatar } from 'antd';
 import { InfoCircleOutlined, UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import styles from './index.less'
-import { register } from '@/services/login'
+import { register } from '@/services/user'
 const RegisterModal = ({ isModalVisible, setModalVisible }) => {
   const [value, setValue] = useState(1);
   const [account, setaccount] = useState('')
@@ -19,7 +18,7 @@ const RegisterModal = ({ isModalVisible, setModalVisible }) => {
       onOk={() => {
         if (account && pwd && pwd === repwd && email) {
           register({
-            email,
+            email: email + '.com',
             head: 0,//还没写.jpg
             manager: value,
             nickname: account,
@@ -35,11 +34,15 @@ const RegisterModal = ({ isModalVisible, setModalVisible }) => {
       cancelText="取消"
       okText='注册'
     >
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Avatar size={64} icon={<UserOutlined />} />
+      </div>
+      <br />
       <div style={{ display: 'flex' }}>
         <div className={styles.inputStyle}>
           用户名：
         </div>
-        <Input size="small" style={{ width: '60%' }} value={account}
+        <Input allowClear size="small" style={{ width: '60%' }} value={account}
           placeholder="请输入用户名"
           prefix={<UserOutlined className="site-form-item-icon" />}
           suffix={
@@ -55,7 +58,7 @@ const RegisterModal = ({ isModalVisible, setModalVisible }) => {
         <div className={styles.inputStyle}>
           密码：
         </div>
-        <Input size="small" style={{ width: '60%' }} type='password' value={pwd}
+        <Input allowClear size="small" style={{ width: '60%' }} type='password' value={pwd}
           placeholder="请输入密码"
           prefix={<LockOutlined className="site-form-item-icon" />}
           suffix={
@@ -71,7 +74,7 @@ const RegisterModal = ({ isModalVisible, setModalVisible }) => {
         <div className={styles.inputStyle}>
           重复密码：
         </div>
-        <Input size="small" style={{ width: '60%' }} type='password' value={repwd}
+        <Input allowClear size="small" style={{ width: '60%' }} type='password' value={repwd}
           placeholder="请再次确认您的密码"
           prefix={<LockOutlined className="site-form-item-icon" />}
           suffix={
@@ -87,9 +90,10 @@ const RegisterModal = ({ isModalVisible, setModalVisible }) => {
         <div className={styles.inputStyle}>
           邮箱：
         </div>
-        <Input size="small" style={{ width: '60%' }} value={email}
+        <Input allowClear size="small" style={{ width: '60%' }} value={email}
           placeholder="请输入邮箱"
           prefix={<MailOutlined className="site-form-item-icon" />}
+          addonAfter=".com"
           suffix={
             <Tooltip title="邮箱的规范@#%¥#¥%¥@@##@#">
               <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
