@@ -15,7 +15,7 @@ const Info = ({ }) => {
   useEffect(() => {
     getMessage({}).then((message) => {
       setuserInfo(message.data)
-      setname(message.data.nickname)
+      setname(message.data?.nickname)
     })
   }, [])
 

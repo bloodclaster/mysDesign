@@ -20,7 +20,7 @@ export default defineConfig({
   ],
   proxy: {
     '/api': {
-      target: 'http://101.133.144.44:8001',
+      target: 'http://mystop.top:8001/',
       pathRewrite: { '^/api': '' },
       changeOrigin: true
     }

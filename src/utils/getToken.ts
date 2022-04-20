@@ -34,7 +34,6 @@ function loadOcgaasUser() {
 
 export function getToken() {
   let token = localStorage.getItem('token');
-  console.log(localStorage)
   let ocgaasUser = loadOcgaasUser();
   if (ocgaasUser) {
     ocgaasUser = JSON.parse(ocgaasUser);
