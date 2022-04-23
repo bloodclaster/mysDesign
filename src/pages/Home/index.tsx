@@ -2,11 +2,11 @@ import { history, Link } from 'umi';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { getMessage, getclassMessage, getvidioMessage } from "@/services/home"
 import { Card, Avatar, Button, Menu, Row, Col } from 'antd';
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 const { Meta } = Card;
 const { Item } = Menu
 
-export default ({ }) => {
+const Home = ({ }) => {
   const N: any = null
   const [message, setmessage] = useState(N)
   const [inlogin, setinlogin] = useState(false)
@@ -41,17 +41,25 @@ export default ({ }) => {
         marginTop: '5px',
         marginRight: '3%'
       }}
-    >Login</Link> :
-      <Link
-        to={"/user"}
-        style={{
-          width: '120px',
-          textAlign: 'center',
-          float: 'right',
-          marginTop: '5px',
-          marginRight: '3%'
-        }}
-      >User</Link>}
+    >Login</Link> : [<Link
+      to={"/user"}
+      style={{
+        width: '120px',
+        textAlign: 'center',
+        float: 'right',
+        marginTop: '5px',
+        marginRight: '3%'
+      }}
+    >User</Link>, <Link
+      to={"/home/upload"}
+      style={{
+        width: '120px',
+        textAlign: 'center',
+        float: 'right',
+        marginTop: '5px',
+        marginRight: '3%'
+      }}
+    >Upload</Link>]}
     <Menu style={{ width: '60%', marginLeft: '10%' }} selectedKeys={['home']} mode="horizontal" >
       <Item key='home' style={{ width: '120px', textAlign: 'center' }} ><Link to="/home">Home</Link></Item>
     </Menu>
@@ -92,3 +100,5 @@ const RenderCard = ({ imgUrl, className, head, nickname, introduction, id }) => 
     />
   </Card >
 }
+
+export default memo(Home)

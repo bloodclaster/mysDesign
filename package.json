@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/pro-card": "^1.19.5",
     "@ant-design/pro-layout": "^6.5.0",
     "antd": "^4.19.5",
     "braft-editor": "^2.3.9",

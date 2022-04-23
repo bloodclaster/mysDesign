@@ -7,16 +7,13 @@ import styles from './index.less'
 import { history } from 'umi';
 
 const { SubMenu, Item } = Menu;
-export default (second) => {
+export default (props) => {
   const [current, setcurrent] = useState('frontPage')
   const [isModalVisible, setModalVisible] = useState(false);
   const [account, setaccount] = useState('')
   const [pwd, setpwd] = useState('')
 
-  const handleClick = (e: { key: any }) => {
-    console.log('click ', e);
-    setcurrent(e.key)
-  };
+  const handleClick = (e: { key: any }) => { setcurrent(e.key) };
   return (<div>
     <PageHeader
       title="课 程 群"

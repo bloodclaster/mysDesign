@@ -3,6 +3,7 @@ import { Modal, Row, Col, Input, Radio, Button, Tooltip, Avatar } from 'antd';
 import { InfoCircleOutlined, UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import styles from './index.less'
 import { register } from '@/services/user'
+
 const RegisterModal = ({ isModalVisible, setModalVisible }) => {
   const [value, setValue] = useState(1);
   const [account, setaccount] = useState('')
@@ -10,7 +11,7 @@ const RegisterModal = ({ isModalVisible, setModalVisible }) => {
   const [repwd, setrepwd] = useState('')
   const [email, setemail] = useState('')
 
-  return <div>
+  return (<div>
     <Button onClick={() => { setModalVisible(true) }} type="primary">注册</Button>
     <Modal
       title="注册"
@@ -110,7 +111,7 @@ const RegisterModal = ({ isModalVisible, setModalVisible }) => {
       </Radio.Group>
       <br /><br />
     </Modal >
-  </div >
+  </div >)
 }
 export default RegisterModal;
 

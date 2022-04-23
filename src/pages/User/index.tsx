@@ -25,11 +25,25 @@ export default ({ }) => {
     {!login ? <Link
       to={"/login"}
       style={{ width: '120px', textAlign: 'center', float: 'right', marginTop: '5px', marginRight: '3%' }}
-    >Login</Link> :
-      <Link
-        to={"/user"}
-        style={{ width: '120px', textAlign: 'center', float: 'right', marginTop: '5px', marginRight: '3%' }}
-      >User</Link>}
+    >Login</Link> : [<Link
+      to={"/user"}
+      style={{
+        width: '120px',
+        textAlign: 'center',
+        float: 'right',
+        marginTop: '5px',
+        marginRight: '3%'
+      }}
+    >User</Link>, <Link
+      to={"/home/upload"}
+      style={{
+        width: '120px',
+        textAlign: 'center',
+        float: 'right',
+        marginTop: '5px',
+        marginRight: '3%'
+      }}
+    >Upload</Link>]}
     <Menu style={{ width: '60%', marginLeft: '10%' }} selectedKeys={['home']} mode="horizontal" >
       <Item key='home' style={{ width: '120px', textAlign: 'center' }} ><Link to="/home">Home</Link></Item>
     </Menu>
