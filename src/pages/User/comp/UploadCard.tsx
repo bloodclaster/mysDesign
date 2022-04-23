@@ -11,7 +11,7 @@ const { CheckableTag } = Tag;
 
 
 
-export default ({ }) => {
+export default ({ setdata }) => {
   const N: any = null
   const [className, setclassName] = useState(N)
   const [introduction, setintroduction] = useState(N)
@@ -21,6 +21,23 @@ export default ({ }) => {
   const [editor, seteditor] = useState(N)
   const [classMessage, setclassMessage] = useState(N)
   const [selectclass, setselectclass] = useState([])
+
+  useEffect(() => {
+    editorState &&
+      setdata({
+        classItem: {
+          className,
+          introduction,
+          sort,
+          text: editorState.toHTML(),
+          id: '',
+          seeNum: '',
+          time: '',
+          user: ''
+        },
+        relatedClass: selectclass
+      })
+  }, [className, introduction, sort, editorState])
 
   const handleChange = (editorState: any) => {
     seteditorState(editorState)

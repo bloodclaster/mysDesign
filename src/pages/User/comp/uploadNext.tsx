@@ -1,7 +1,7 @@
-import { Button, Input, message, Popconfirm } from 'antd'
+import { Button, Input, message, Popconfirm, Upload } from 'antd'
 import ProCard from '@ant-design/pro-card';
 import { useState } from 'react';
-
+import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 
 
 export default ({ }) => {
@@ -10,6 +10,27 @@ export default ({ }) => {
   const [link, setlink] = useState('')
   const [list, setlist] = useState(N)
   return (<div style={{ margin: '12px' }}>
+    <Upload
+      name='file'
+      action={`http://101.133.144.44:8001/file/insert/ ${2}`}
+      headers={{ token: localStorage.getItem('token'), }}
+      onRemove={(file) => {
+        console.log('remove---', file)
+      }}
+      multiple={true}
+      onChange={(info: any) => {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      }}
+    >
+      <Button icon={<UploadOutlined />}>Click to Upload</Button>
+    </Upload>
     <div style={{ marginTop: '12px' }}>外链名称:</div>
     <Input size='small' value={name} style={{ margin: '12px', width: '285px' }} onChange={(e: any) => {
       setname(e.target.value)

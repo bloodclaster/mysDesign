@@ -1,7 +1,8 @@
 import UploadCard from "../comp/UploadCard";
 import UploadNext from "../comp/uploadNext";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
+import { getSelecrFile, getSelecrVideo, deleteClassItem, insertClassItem } from '@/services/user'
 import { Affix, Button, Dropdown, Menu } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { history } from 'umi';
@@ -9,6 +10,18 @@ import ProCard from '@ant-design/pro-card';
 
 export default ({ }) => {
   const [page, setpage] = useState(1)
+  const [id, setid] = useState(null)
+  const [data, setdata] = useState(null)
+  useEffect(() => {
+    if (id) {
+      getSelecrFile(id).then((file) => {
+
+      })
+      getSelecrVideo(id).then((video) => {
+
+      })
+    }
+  }, [id])
   return <div>
     <div
       style={{
@@ -20,7 +33,7 @@ export default ({ }) => {
           title: '上传',
           ghost: true,
           extra: [
-            <Button type='link' onClick={() => {
+            <Button size='small' type='link' onClick={() => {
               history.push('/home')
             }}>
               返回首页
@@ -29,8 +42,26 @@ export default ({ }) => {
         }}
         tabBarExtraContent={
           <div style={{ display: 'flex', }}>
+            {page === 1 && id && <Affix offsetTop={10}>
+              <Button size='small'
+                style={{ marginBottom: '15px', marginRight: '35px' }}
+                danger
+                onClick={() => { deleteClassItem(id) }}>
+                删除
+              </Button>
+            </Affix>}
+            {page === 1 && <Affix offsetTop={10}>
+              <Button size='small'
+                style={{ marginBottom: '15px', marginRight: '35px' }}
+                onClick={() => {
+                  insertClassItem(data).then(res => setid(res.data.id))
+                  setTimeout(() => { setpage(2) })
+                }}>
+                下一步
+              </Button>
+            </Affix>}
             {page === 2 && <Affix offsetTop={10}>
-              <Button
+              <Button size='small'
                 style={{ marginBottom: '15px', marginRight: '35px' }}
                 onClick={() => {
                   setTimeout(() => { setpage(1) })
@@ -38,17 +69,19 @@ export default ({ }) => {
                 上一步
               </Button>
             </Affix>}
-            <Affix offsetTop={10}>
-              <Button
+            {page === 2 && <Affix offsetTop={10}>
+              <Button size='small'
+                type='primary'
                 style={{ marginBottom: '15px', marginRight: '35px' }}
                 onClick={() => {
-                  setTimeout(() => { setpage(2) })
+
                 }}>
-                下一步
+                上传
               </Button>
-            </Affix></div>}
+            </Affix>}
+          </div>}
         tabList={[{
-          tab: '上传课程信息',
+          tab: page === 1 ? `上传课程信息` : `上传外链及文件`,
           key: 'base',
           closable: false,
         }]}
@@ -61,7 +94,7 @@ export default ({ }) => {
         <ProCard direction="column" ghost gutter={[0, 16]}>
           {
             page === 1 && <ProCard style={{ minHeight: 200 }} >
-              <UploadCard />
+              <UploadCard setdata={setdata} />
 
             </ProCard>
           }

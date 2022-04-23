@@ -59,18 +59,32 @@ export async function getclassSortMessage(params: any) {
 
 
 
-export async function insertClassItem(data: {
-  className: any,
-  id: any,
-  introduction: any,
-  seeNum: any,
-  sort: any,
-  text: any,
-  time: any,
-  user: any
-}) {
+export async function insertClassItem(data: any) {
   return request('/api/class/insertClassItem', {
     method: 'POST',
     data
   });
+}
+
+// file/selectFile/{classId}
+export async function getSelecrFile(id: any, params?: any) {
+  return request(`/api/file/selectFile/${id}`, {
+    method: 'GET',
+    params
+  })
+}
+// /video/selectVideo/{classId}
+export async function getSelecrVideo(id: any, params?: any) {
+  return request(`/api/video/selectVideo/${id}`, {
+    method: 'GET',
+    params
+  })
+}
+
+// /class/delClassItem/{id}
+export async function deleteClassItem(id: any, params?: any) {
+  return request(`/api/class/delClassItem/${id}`, {
+    method: 'GET',
+    params
+  })
 }
