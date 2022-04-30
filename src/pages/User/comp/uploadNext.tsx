@@ -1,10 +1,11 @@
 import { Button, Input, message, Popconfirm, Upload } from 'antd'
 import ProCard from '@ant-design/pro-card';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
+import { deleteField, deleteVideo, insertVideo } from '@/services/video';
 
 
-export default ({ }) => {
+export default ({ id }) => {
   const N: any = []
   const [name, setname] = useState('')
   const [link, setlink] = useState('')
@@ -12,20 +13,30 @@ export default ({ }) => {
   return (<div style={{ margin: '12px' }}>
     <Upload
       name='file'
-      action={`http://101.133.144.44:8001/file/insert/ ${2}`}
-      headers={{ token: localStorage.getItem('token'), }}
-      onRemove={(file) => {
-        console.log('remove---', file)
-      }}
+      action={`http://101.133.144.44:8001/file/insert/ ${id}`}
+      headers={{ token: localStorage.getItem('token') }}
       multiple={true}
       onChange={(info: any) => {
-        if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
         if (info.file.status === 'done') {
           message.success(`${info.file.name} file uploaded successfully`);
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} file upload failed.`);
+        }
+        if (info.file.status === 'removed') {
+          const { response } = info.file
+          const vid = response.data.id
+          deleteField({
+            id: vid,
+            classId: id,
+            address: "",
+            name: "",
+            uuid: ""
+          }).then((res) => {
+            if (res.code === 200) {
+              message.success('删除成功')
+            } else
+              message.error(res.message)
+          })
         }
       }}
     >
@@ -44,11 +55,21 @@ export default ({ }) => {
         message.warning('最多上传五个外链')
       else
         if (name && link) {
-          setlist([...list, {
-            name, link
-          }])
-          setname('')
-          setlink('')
+          insertVideo({
+            classId: id,
+            name,
+            video: link
+          }).then((res) => {
+            if (res.code === 200) {
+              let id = res.data.id
+              setlist([...list, {
+                name, link, id
+              }])
+              setname('')
+              setlink('')
+            } else
+              message.error(res.message)
+          })
         }
         else
           message.warning('请确保名称或链接不为空')
@@ -68,10 +89,18 @@ export default ({ }) => {
           okText="是"
           cancelText="取消"
           onConfirm={() => {
-            setlist(list.map((item: any, i: number) => {
-              if (i === index) return
-              else return item
-            }).filter(Boolean))
+            deleteVideo({
+              id: item.id,
+              classId: id
+            }).then((res) => {
+              if (res.code === 200) {
+                setlist(list.map((item: any, i: number) => {
+                  if (i === index) return
+                  else return item
+                }).filter(Boolean))
+              } else
+                message.error(res.message)
+            })
           }}
         >
           <Button

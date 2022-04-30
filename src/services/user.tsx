@@ -88,3 +88,18 @@ export async function deleteClassItem(id: any, params?: any) {
     params
   })
 }
+export async function checkClassItem(id: any, params?: any) {
+  return request(`/api/class/selectClassItemById/${id}`, {
+    method: 'GET',
+    params
+  })
+}
+// /class/updateClassItem
+export async function updateClassItem(data: any) {
+  return request('/api/class/updateClassItem', {
+    method: 'POST',
+    data
+  });
+}
+
+

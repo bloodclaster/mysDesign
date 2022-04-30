@@ -1,7 +1,7 @@
-import { upload, getclassSortMessage, insertClassItem } from '@/services/user'
+import { upload, getclassSortMessage, insertClassItem, checkClassItem } from '@/services/user'
 import { getclassMessage } from '@/services/home'
 import { Button, Input, message, Select, Divider, Tag } from 'antd'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import 'braft-editor/dist/index.css'
 import React from 'react'
 import BraftEditor from 'braft-editor'
@@ -11,7 +11,7 @@ const { CheckableTag } = Tag;
 
 
 
-export default ({ setdata }) => {
+const UploadCard = ({ setdata, id }) => {
   const N: any = null
   const [className, setclassName] = useState(N)
   const [introduction, setintroduction] = useState(N)
@@ -22,22 +22,34 @@ export default ({ setdata }) => {
   const [classMessage, setclassMessage] = useState(N)
   const [selectclass, setselectclass] = useState([])
 
+
   useEffect(() => {
-    editorState &&
-      setdata({
-        classItem: {
-          className,
-          introduction,
-          sort,
-          text: editorState.toHTML(),
-          id: '',
-          seeNum: '',
-          time: '',
-          user: ''
-        },
-        relatedClass: selectclass
+    if (id)
+      checkClassItem(id).then((res) => {
+        const { text, relatedClass } = res.data
+        console.log(text)
+        setclassName(text.className)
+        setintroduction(text.introduction)
+        setsort(text.sort)
+        seteditorState(BraftEditor.createEditorState(text.text))
+        setselectclass(relatedClass.map((item: any) => item.id))
       })
-  }, [className, introduction, sort, editorState])
+  }, [])
+  useEffect(() => {
+    setdata({
+      classItem: {
+        className,
+        introduction,
+        sort,
+        text: editorState && editorState.toHTML(),
+        id: '',
+        seeNum: '',
+        time: '',
+        user: ''
+      },
+      relatedClass: selectclass
+    })
+  }, [className, introduction, sort, editorState, selectclass])
 
   const handleChange = (editorState: any) => {
     seteditorState(editorState)
@@ -55,16 +67,13 @@ export default ({ setdata }) => {
         for (let key in data) {
           res.push(data[key])
         }
-        console.log(res)
         setclassMessage(res)
       }
     })
   }, [])
 
   const hendleChange = (tag, checked) => {
-    // const { selectclass } = this.state;
-    const nextSelectedTags = checked ? [...selectclass, tag] : selectclass.filter(t => t !== tag);
-    console.log('You are interested in: ', nextSelectedTags);
+    const nextSelectedTags: any = checked ? [...selectclass, tag] : selectclass.filter(t => t !== tag);
     setselectclass(nextSelectedTags);
   }
 
@@ -73,13 +82,13 @@ export default ({ setdata }) => {
       <div style={{ width: '50%' }}>
         <div className={styles.inputStyle}>
           <div style={{ marginTop: '12px' }}>课程名称:</div>
-          <Input size='small' style={{ margin: '12px', width: '285px' }} onChange={(e: any) => {
+          <Input size='small' value={className} style={{ margin: '12px', width: '285px' }} onChange={(e: any) => {
             setclassName(e.target.value)
           }} />
         </div>
         <div className={styles.inputStyle}>
           <div style={{ marginTop: '12px' }}>课程介绍:</div>
-          <Input size='small' style={{ margin: '12px', width: '325px' }} onChange={(e: any) => {
+          <Input size='small' value={introduction} style={{ margin: '12px', width: '325px' }} onChange={(e: any) => {
             setintroduction(e.target.value)
           }} />
         </div>
@@ -93,7 +102,7 @@ export default ({ setdata }) => {
           </Select>
         </div>
       </div>
-      <div style={{ width: '50%' }}>
+      <div style={{ width: '50%', height: 150, overflow: 'auto' }}>
         <div className={styles.inputStyle}>
           <div style={{ marginTop: '12px' }}>相关课程:</div>
         </div>
@@ -137,3 +146,4 @@ export default ({ setdata }) => {
     }}>111</Button> */}
   </div>)
 }
+export default memo(UploadCard)

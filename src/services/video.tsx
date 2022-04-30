@@ -1,10 +1,10 @@
 import request from '@/utils/request';
 
 //  插入
-export function insertVideo(body: any) {
+export function insertVideo(data: any) {
   return request(`/api/video/insert`, {
     method: 'POST',
-    body
+    data
   })
 }
 //  查询
@@ -14,10 +14,16 @@ export function selectVideo(id: any) {
   })
 }
 //  删除
-export function deleteVideo(body: any) {
+export function deleteVideo(data: any) {
   return request(`/api/video/delVideo`, {
     method: 'POST',
-    body
+    data
+  })
+}
+export function deleteField(data: any) {
+  return request(`/api/file/delFile`, {
+    method: 'POST',
+    data
   })
 }
 // 文件下载
