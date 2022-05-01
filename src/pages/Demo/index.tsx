@@ -8,6 +8,6 @@ export default (props) => {
 
   return (<div>
     MyCard:
-    <MyCard />
+    <MyCard className={'undefined'} introduction={undefined} id={undefined} nickname={undefined} seeNum={undefined} time={undefined} style={undefined} />
   </div>)
 }
