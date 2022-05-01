@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Link } from "umi"
 import { UserOutlined } from '@ant-design/icons'
 import { getMessage } from '@/services/user'
-import UploadCard from "./comp/UploadCard"
+import Upload from "./upload"
 import Info from "./comp/Info"
 import BrowseHistory from "./comp/browseHistory"
 import HistoryUpload from "./comp/historyUpload"
@@ -65,14 +65,10 @@ export default ({ }) => {
         <Item onClick={() => setvalue('set')} style={{ marginRight: '15px' }} key='set'>账号设置</Item>
         <Item onClick={() => setvalue('download')} style={{ marginRight: '15px' }} key='download'>浏览记录</Item>
         <Item onClick={() => setvalue('historyupload')} style={{ marginRight: '15px' }} key='historyupload'>上传记录</Item>
-        <Item onClick={() => setvalue('upload')} style={{ marginRight: '15px' }} key='upload'>我的上传</Item>
       </Menu>
       {value === 'set' && <div style={{ margin: '12px' }}><Info /></div>}
-      {value === 'download' && <div style={{ margin: '12px' }}>
-        <BrowseHistory />
-      </div>}
+      {value === 'download' && <div style={{ margin: '12px' }}><BrowseHistory /></div>}
       {value === 'historyupload' && <HistoryUpload />}
-      {value === 'upload' && <UploadCard />}
     </div>
 
   </div >)

@@ -11,6 +11,7 @@ export default defineConfig({
     { path: '/home', component: 'home' },
     { path: '/user', component: 'user' },
     { path: '/home/video', component: 'home/videoPage' },
+    { path: '/home/editor', component: 'user/editor' },
     { path: '/home/upload', component: 'user/upload' },
     {
       path: '/', component: 'index',

@@ -1,9 +1,9 @@
 import { history, Link } from 'umi';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { getMessage, getclassMessage, getvidioMessage } from "@/services/home"
-import { Card, Avatar, Button, Menu, Row, Col } from 'antd';
+import { Avatar, Button, Menu, Row, Col } from 'antd';
 import { memo, useEffect, useState } from "react";
-const { Meta } = Card;
+import MyCard from '@/components/MyCard';
 const { Item } = Menu
 
 const Home = ({ }) => {
@@ -63,42 +63,20 @@ const Home = ({ }) => {
     <Menu style={{ width: '60%', marginLeft: '10%' }} selectedKeys={['home']} mode="horizontal" >
       <Item key='home' style={{ width: '120px', textAlign: 'center' }} ><Link to="/home">Home</Link></Item>
     </Menu>
-    {message.map((msg: any) => [<div style={{ marginLeft: '10%', marginTop: '1%' }}>
-      {msg.name}
-    </div>, <Row gutter={[24, 24]} style={{ marginLeft: '12%', marginTop: '40px', width: '84%' }}>
-      {msg.data.map((item: any) => <Col xs={12} sm={8} md={8} lg={8} xl={5} xxl={5}>
-        <RenderCard
-          imgUrl={imgBox[2]}
-          {...item}
-        />
-      </Col>)}
-    </Row >])}
+    {message.map((msg: any) => [
+      <div style={{ marginLeft: '10%', marginTop: '1%' }}>
+        {msg.name}
+      </div>,
+      <div style={{ display: 'flex', marginLeft: '9%', width: "82%", flexDirection: 'row', flexWrap: 'wrap' }}>
+        {msg.data.map((item: any) =>
+          <MyCard
+            imgUrl={imgBox[2]}
+            {...item}
+          />
+        )}
+      </div>
+    ])}
   </div >)
-}
-
-const RenderCard = ({ imgUrl, className, head, nickname, introduction, id }) => {
-  return <Card
-    cover={
-      <img
-        alt="example"
-        src={imgUrl}
-        onClick={() => {
-          history.push(`/home/video?id=${id}`)
-        }}
-      // style={{ height: '140px', width: '190px' }}
-      />
-    }
-    actions={[
-      // <EditOutlined key="edit" />,
-      // <EllipsisOutlined key="ellipsis" />,
-    ]}
-  >
-    <Meta
-      // avatar={<Avatar size={32} src={require('../../../public/imgLogin.png')} />}
-      title={className}
-      description={<div style={{ float: 'right', fontSize: 10 }}>{introduction || '这个人很懒没写介绍'}</div>}
-    />
-  </Card >
 }
 
 export default memo(Home)

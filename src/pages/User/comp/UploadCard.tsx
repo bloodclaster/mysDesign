@@ -26,7 +26,7 @@ const UploadCard = ({ setdata, id }) => {
   useEffect(() => {
     if (id)
       checkClassItem(id).then((res) => {
-        const { text, relatedClass } = res.data
+        const { text, relatedClass } = res?.data
         console.log(text)
         setclassName(text.className)
         setintroduction(text.introduction)

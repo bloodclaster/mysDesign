@@ -95,7 +95,7 @@ export async function checkClassItem(id: any, params?: any) {
   })
 }
 // /class/updateClassItem
-export async function updateClassItem(data: any) {
+export async function updateClassItem(data:any) {
   return request('/api/class/updateClassItem', {
     method: 'POST',
     data

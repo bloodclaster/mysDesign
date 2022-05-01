@@ -15,8 +15,7 @@ export default (props) => {
   }, [])
   return (<div>
     <Spin spinning={loading}>
-      {text && <div dangerouslySetInnerHTML={{ __html: text.text }}>
-      </div>}
+      {text && <div dangerouslySetInnerHTML={{ __html: text.text }}></div>}
     </Spin>
   </div>)
 }

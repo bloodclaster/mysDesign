@@ -1,0 +1,67 @@
+.brp {
+  position: relative;
+  width   : 206px;
+  height  : 116px;
+  overflow: hidden;
+
+  margin-right : 24px;
+  margin-top   : 8px;
+  margin-bottom: 16px;
+
+  /* border-style: none none none double; */
+  /* border-width: 3px; */
+}
+
+.insideDiv {
+  width    : 206px;
+  height   : 116px;
+  font-size: 24px;
+
+  margin-top      : -24px;
+  display         : table-cell;
+  vertical-align  : middle;
+  text-align      : center;
+  background-color: rgb(94, 70, 70);
+
+  background             : linear-gradient(to right, red, blue);
+  -webkit-background-clip: text;
+  color                  : transparent;
+}
+
+.brp2 {
+  position  : absolute;
+  width     : 206px;
+  height    : 122px;
+  margin-top: -25px;
+
+  background-color: rgba(0, 0, 0, .5);
+  transition      : all 0.1s linear;
+}
+
+.brp2 h1 {
+  margin            : 0 10px;
+  height            : 44px;
+  display           : -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow          : hidden;
+  color             : #fff;
+  font-size         : 14px;
+}
+
+.brp2 h2 {
+  overflow     : hidden;
+  text-overflow: ellipsis;
+  white-space  : nowrap;
+  color        : #fff;
+  margin       : 0 10px;
+  font-size    : 12px;
+}
+
+.brp:hover .brp2 {
+  margin-top: -122px;
+}
+
+.brp:hover .brp2 h1 {
+  margin-top: 35px;
+}

@@ -1,47 +1,79 @@
-import { Button, Input, message, Popconfirm, Upload } from 'antd'
+import { Button, Input, message, Popconfirm, Upload, Table } from 'antd'
 import ProCard from '@ant-design/pro-card';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import { deleteField, deleteVideo, insertVideo } from '@/services/video';
+import { checkClassItem } from '@/services/user';
+import TabPane from '@ant-design/pro-card/lib/components/TabPane';
 
-
-export default ({ id }) => {
+const uploadNext = ({ id }) => {
   const N: any = []
   const [name, setname] = useState('')
   const [link, setlink] = useState('')
   const [list, setlist] = useState(N)
+  const [files, setfiles] = useState(N)
+  const loadTable = () => checkClassItem(id).then((res) => {
+    if (res.code === 200) {
+      setfiles(res.data.files)
+      setlist(res.data.videos)
+    } else message.error(res.message)
+  })
+  useEffect(() => {
+    loadTable()
+  }, [])
   return (<div style={{ margin: '12px' }}>
     <Upload
       name='file'
       action={`http://101.133.144.44:8001/file/insert/ ${id}`}
       headers={{ token: localStorage.getItem('token') }}
       multiple={true}
+      showUploadList={false}
       onChange={(info: any) => {
+        loadTable()
         if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
+          message.success(`文件${info.file.name} 上传成功！`);
         } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-        if (info.file.status === 'removed') {
-          const { response } = info.file
-          const vid = response.data.id
-          deleteField({
-            id: vid,
-            classId: id,
-            address: "",
-            name: "",
-            uuid: ""
-          }).then((res) => {
-            if (res.code === 200) {
-              message.success('删除成功')
-            } else
-              message.error(res.message)
-          })
+          message.error(`文件${info.file.name} 上传失败`);
         }
       }}
     >
-      <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      <Button size='small' style={{ marginBottom: '12px' }} icon={<UploadOutlined />}>Click to Upload</Button>
     </Upload>
+    {files[0] && <Table
+      size='small'
+      columns={[{
+        title: '文件名',
+        dataIndex: 'name'
+      }, {
+        title: '操作',
+        dataIndex: 'id',
+        render: (value: any, record: any, index: number) => {
+          return <Popconfirm
+            title='是否确认删除'
+            okText="是"
+            cancelText="取消"
+            onConfirm={() => {
+              deleteField({
+                id: record.id,
+                classId: record.classId,
+                address: record.address,
+                name: '',
+                uuid: ''
+              }).then((res) => {
+                if (res.code === 200) {
+                  message.success('删除成功')
+                } else
+                  message.error(res.message)
+                loadTable()
+              })
+            }}
+          >
+            <Button danger size='small' type='link'>删除</Button>
+          </Popconfirm>
+        }
+      }]}
+      dataSource={files}
+    />}
     <div style={{ marginTop: '12px' }}>外链名称:</div>
     <Input size='small' value={name} style={{ margin: '12px', width: '285px' }} onChange={(e: any) => {
       setname(e.target.value)
@@ -104,8 +136,10 @@ export default ({ id }) => {
           }}
         >
           <Button
-            danger size='small' style={{ marginTop: '45px' }}>删除</Button></Popconfirm>
+            danger size='small' style={{ marginTop: '45px' }}>删除</Button>
+        </Popconfirm>
       </div>)
     }
   </div>)
 }
+export default memo(uploadNext)

@@ -1,6 +1,6 @@
 import UploadCard from "../comp/UploadCard";
 import UploadNext from "../comp/uploadNext";
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { getSelecrFile, getSelecrVideo, deleteClassItem, insertClassItem, checkClassItem, updateClassItem } from '@/services/user'
 import { Affix, Button, Dropdown, Menu, message } from 'antd';
@@ -8,12 +8,14 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { history } from 'umi';
 import ProCard from '@ant-design/pro-card';
 import { insertVideo } from "@/services/video";
-
-export default ({ }) => {
+export type AnalysisType = {
+  initId?: number,
+  type?: string
+}
+const Upload: React.FC<AnalysisType> = ({ initId, type = `上传` }) => {
   const [page, setpage] = useState(1)
-  const [id, setid] = useState(null)
+  const [id, setid] = useState(initId || null)
   const [data, setdata] = useState(null)
-  const [linkdata, setlinkdata] = useState(null)
 
   return <div>
     <div
@@ -23,13 +25,13 @@ export default ({ }) => {
     >
       <PageContainer
         header={{
-          title: '上传',
+          title: type,
           ghost: true,
           extra: [
             <Button size='small' type='link' onClick={() => {
-              history.push('/home')
+              history.goBack()
             }}>
-              返回首页
+              返回
             </Button>
           ]
         }}
@@ -99,12 +101,12 @@ export default ({ }) => {
                 onClick={() => {
                   history.push('/home')
                 }}>
-                上传
+                完成
               </Button>
             </Affix>}
           </div>}
         tabList={[{
-          tab: page === 1 ? `上传课程信息` : `上传外链及文件`,
+          tab: page === 1 ? `${type}课程信息` : `${type}外链及文件`,
           key: 'base',
           closable: false,
         }]}
@@ -114,7 +116,7 @@ export default ({ }) => {
           onEdit: (e, action) => console.log(e, action),
         }}
       >
-        <ProCard direction="column" ghost gutter={[0, 16]}>
+        <ProCard direction="column" ghost gutter={[0, 16]} style={{ paddingBottom: '24px' }}>
           {
             page === 1 && <ProCard style={{ minHeight: 200 }} >
               <UploadCard setdata={setdata} id={id} />
@@ -130,3 +132,4 @@ export default ({ }) => {
     </div>
   </div>
 }
+export default memo(Upload)
