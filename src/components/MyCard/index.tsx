@@ -9,10 +9,8 @@ const MyCard = ({ className, introduction, id, nickname, seeNum, time, style }) 
     history.push(`/home/video?id=${id}`)
   }
   return <div onClick={onClick} className={styles.brp} style={style}>
-    <div className={styles.insideDiv}>
-      <div>
-        {className}
-      </div>
+    <div className={styles.insideBg}>
+      <span className={styles.insideDiv}>{className}</span>
     </div>
     <div className={styles.brp2}>
       <h1>{introduction || '介绍'}</h1>
