@@ -25,6 +25,8 @@
     "@ant-design/pro-layout": "^6.5.0",
     "antd": "^4.19.5",
     "braft-editor": "^2.3.9",
+    "echarts": "^5.3.2",
+    "echarts-for-react": "^3.0.2",
     "jsonwebtoken": "^8.5.1",
     "less": "^4.1.2",
     "lodash": "^4.17.21",
