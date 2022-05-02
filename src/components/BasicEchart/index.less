@@ -1,0 +1,29 @@
+.zoomControl{
+  display: flex;
+  position: absolute;
+  left: 10px;
+  z-index: 9;
+  font-size: 12px;
+  user-select: none;
+  .btn{
+    margin-left: 4px;
+    background-color: #f7f7f7;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .active{
+    background-color: #e6ebf5;
+    font-weight: bold;
+    color: #000;
+  }
+}
+.timechart {
+  position: relative;
+  margin-top: 15px;
+  .exportWapper {
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+  }
+}
