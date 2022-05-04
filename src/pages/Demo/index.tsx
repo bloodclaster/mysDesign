@@ -1,14 +1,71 @@
 import React from 'react';
-import { EllipsisOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Menu } from 'antd';
+import { EllipsisOutlined, InboxOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Menu, message, Steps, Upload } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
 import IncreaseChart from '@/components/BasicEchart/IncreaseChart';
 import moment from 'moment';
 import PieChart from '@/components/BasicEchart/PieChart';
 import TimeSeriesChart from '@/components/BasicEchart/TimeSeriesChart';
+const { Step } = Steps;
+const { Dragger } = Upload;
 
-export default ({ }) => {
+export default ({ id }) => {
+  const props = {
+    name: 'file',
+    multiple: true,
+    action: `http://101.133.144.44:8001/file/insert/${id}`,
+    headers: { token: localStorage.getItem('token') },
+    showUploadList: false,
+    onChange(info) {
+      if (info.file.status === 'done') {
+        message.success(`文件${info.file.name} 上传成功！`);
+        next()
+      } else if (info.file.status === 'error') {
+        message.error(`文件${info.file.name} 上传失败`);
+      }
+    },
+    onDrop(e) {
+      console.log('Dropped files', e.dataTransfer.files);
+    },
+  };
+  const steps = [
+    {
+      title: '上传文件',
+      content: <div>
+        <br />
+        <Dragger {...props}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">点击或者将文件拖拽至此处以上传文件</p>
+          <p className="ant-upload-hint">
+            {/* 。。。 */}
+          </p>
+        </Dragger>
+        <br />
+      </div>,
+    },
+    {
+      title: '选择要生成的图表类型',
+      content: 'Second-content',
+    },
+    {
+      title: '预览',
+      content: 'Last-content',
+    },
+  ];
+
+  const [current, setCurrent] = React.useState(0);
+
+  const next = () => {
+    setCurrent(current + 1);
+  };
+
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
   const data = [
     ['2016-4-10', 250],
     ['2016-4-11', 550],
@@ -97,8 +154,12 @@ export default ({ }) => {
             ],
           },
           extra: [
-            <Button key="1" >
-              按钮
+            <Button key="1" onClick={() => {
+
+            }}>
+              <a href='/模板1.xlsx'>
+                下载模板
+              </a>
             </Button>,
             <Dropdown
               key="dropdown"
@@ -127,7 +188,34 @@ export default ({ }) => {
         }}
       >
         <ProCard direction="column" ghost gutter={[0, 16]}>
-          <ProCard style={{ minHeight: 200 }} />
+          <ProCard gutter={16} style={{ minHeight: 200 }} >
+            <Steps current={current}>
+              {steps.map(item => (
+                <Step key={item.title} title={item.title} />
+              ))}
+            </Steps>
+            <div className="steps-content">{steps[current].content}</div>
+            <div className="steps-action" style={{ float: 'right' }}>
+              {current < steps.length - 1 && (
+                <Button type="primary" onClick={() => next()}>
+                  下一步
+                </Button>
+              )}
+              {current === steps.length - 1 && (
+                <Button type="primary" onClick={() => {
+                  message.success('Processing complete!')
+                }
+                }>
+                  完成
+                </Button>
+              )}
+              {current > 0 && (
+                <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+                  上一步
+                </Button>
+              )}
+            </div>
+          </ProCard>
           <ProCard gutter={16} ghost style={{ minHeight: 200, marginBottom: '15px', marginTop: '15px' }}>
             <ProCard colSpan={16} >
               <RenderIncreaseChart id='111' data={data} />
@@ -151,6 +239,7 @@ export default ({ }) => {
     </div>
   )
 }
+
 const RenderIncreaseChart = ({ id, data }) => {
   let xAxisData: number[] = []
   const series = [{
@@ -281,6 +370,7 @@ const RenderChart = ({ id, data }) => {
     xAxisType='time'
     downloadButton />
 }
+
 const RenderPieChart = ({ id, data }) => {
   const length = Number((data.length / 2).toFixed(0))
   const getConfig = (baseConfig: any) => {

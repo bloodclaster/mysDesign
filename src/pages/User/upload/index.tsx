@@ -1,13 +1,11 @@
 import UploadCard from "../comp/UploadCard";
 import UploadNext from "../comp/uploadNext";
-import React, { memo, useEffect, useState } from 'react';
-import { EllipsisOutlined } from '@ant-design/icons';
-import { getSelecrFile, getSelecrVideo, deleteClassItem, insertClassItem, checkClassItem, updateClassItem } from '@/services/user'
-import { Affix, Button, Dropdown, Menu, message } from 'antd';
+import React, { memo, useState } from 'react';
+import { deleteClassItem, insertClassItem, checkClassItem, updateClassItem } from '@/services/user'
+import { Affix, Button, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { history } from 'umi';
 import ProCard from '@ant-design/pro-card';
-import { insertVideo } from "@/services/video";
 export type AnalysisType = {
   initId?: number,
   type?: string
