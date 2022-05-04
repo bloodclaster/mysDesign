@@ -24,13 +24,15 @@ export async function login(data: {
   });
 }
 
-export async function update(data: {
-  email: string,
-  head: number,
-  nickname: string,
-  password: string,
-}) {
-  return request('/api/user/update', {
+export async function update(data: any) {
+  return request('/api/user/updatePwd', {
+    method: 'POST',
+    data
+  });
+}
+// /user/updateNameOrHead
+export async function updateNOH(data: any) {
+  return request('/api/user/updateNameOrHead', {
     method: 'POST',
     data
   });
@@ -95,7 +97,7 @@ export async function checkClassItem(id: any, params?: any) {
   })
 }
 // /class/updateClassItem
-export async function updateClassItem(data:any) {
+export async function updateClassItem(data: any) {
   return request('/api/class/updateClassItem', {
     method: 'POST',
     data

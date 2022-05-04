@@ -40,9 +40,11 @@ const Info = ({ }) => {
           if (psw && repsw && name)
             update({
               email: psw,// 这玩意是对的，某人懒得改罢了
-              head: 0,
-              nickname: name,
+              nickname: '',
               password: repsw,
+              head: '',
+              id: '',
+              manager: ''
             })
         }}>确认</Button>
     </div>

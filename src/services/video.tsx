@@ -38,10 +38,11 @@ export function deleteField(data: any) {
 }
  */
 
-export function downloadFile(body: any) {
+export function downloadFile(params: any) {
   return request(`/api/file/downloadFile`, {
-    method: 'POST',
-    body
+    method: 'GET',
+    params,
+    // responseType: 'blob'
   })
 }
 // classUploadHistoryMessage

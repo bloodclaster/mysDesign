@@ -1,8 +1,7 @@
-import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import { history } from 'umi';
 import BasicLayout from '@/layouts';
-import { register, login, update } from '../services/user'
+import { useEffect } from 'react';
 const loginPath = '/user/login';
 
 export const initialStateConfig = {
@@ -22,6 +21,9 @@ export async function getInitialState() {
 }
 
 export default (props) => {
+  useEffect(() => {
+    window.location.href = '/home'
+  })
   return <BasicLayout {...props} />
 
 }

@@ -4,6 +4,7 @@ import { getMessage, getclassMessage, getvidioMessage } from "@/services/home"
 import { Avatar, Button, Menu, Row, Col } from 'antd';
 import { memo, useEffect, useState } from "react";
 import MyCard from '@/components/MyCard';
+import Header from '../Header';
 const { Item } = Menu
 
 const Home = ({ }) => {
@@ -31,38 +32,7 @@ const Home = ({ }) => {
     require('../../../public/imgLogin2.png')
   ]
   return message && (<div>
-    <Link style={{ position: 'absolute', marginLeft: '5%', marginTop: '15px' }} to={"/"}>Logo</Link>
-    {!inlogin ? <Link
-      to={"/login"}
-      style={{
-        width: '120px',
-        textAlign: 'center',
-        float: 'right',
-        marginTop: '5px',
-        marginRight: '3%'
-      }}
-    >Login</Link> : [<Link
-      to={"/user"}
-      style={{
-        width: '120px',
-        textAlign: 'center',
-        float: 'right',
-        marginTop: '5px',
-        marginRight: '3%'
-      }}
-    >User</Link>, <Link
-      to={"/home/upload"}
-      style={{
-        width: '120px',
-        textAlign: 'center',
-        float: 'right',
-        marginTop: '5px',
-        marginRight: '3%'
-      }}
-    >Upload</Link>]}
-    <Menu style={{ width: '60%', marginLeft: '10%' }} selectedKeys={['home']} mode="horizontal" >
-      <Item key='home' style={{ width: '120px', textAlign: 'center' }} ><Link to="/home">Home</Link></Item>
-    </Menu>
+    <Header title={``} />
     {message.map((msg: any) => [
       <div style={{ marginLeft: '10%', marginTop: '1%' }}>
         {msg.name}
