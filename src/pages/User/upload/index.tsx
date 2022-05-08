@@ -6,6 +6,7 @@ import { Affix, Button, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { history } from 'umi';
 import ProCard from '@ant-design/pro-card';
+import Header from "@/pages/Header";
 export type AnalysisType = {
   initId?: number,
   type?: string
@@ -16,23 +17,13 @@ const Upload: React.FC<AnalysisType> = ({ initId, type = `上传` }) => {
   const [data, setdata] = useState(null)
 
   return <div>
+    <Header title={page === 1 ? `${type}课程信息` : `${type}外链及文件`} />
     <div
       style={{
         background: '#F5F7FA',
       }}
     >
       <PageContainer
-        header={{
-          title: type,
-          ghost: true,
-          extra: [
-            <Button size='small' type='link' onClick={() => {
-              history.goBack()
-            }}>
-              返回
-            </Button>
-          ]
-        }}
         tabBarExtraContent={
           <div style={{ display: 'flex', }}>
             {page === 1 && id &&
@@ -103,11 +94,6 @@ const Upload: React.FC<AnalysisType> = ({ initId, type = `上传` }) => {
               </Button>
             </Affix>}
           </div>}
-        tabList={[{
-          tab: page === 1 ? `${type}课程信息` : `${type}外链及文件`,
-          key: 'base',
-          closable: false,
-        }]}
         tabProps={{
           type: 'editable-card',
           hideAdd: true,
