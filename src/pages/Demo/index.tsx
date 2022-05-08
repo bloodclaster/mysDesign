@@ -1,6 +1,6 @@
 import React from 'react';
 import { EllipsisOutlined, InboxOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Menu, message, Steps, Upload } from 'antd';
+import { Button, Dropdown, Menu, message, Radio, Steps, Upload } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
 import IncreaseChart from '@/components/BasicEchart/IncreaseChart';
@@ -11,6 +11,42 @@ const { Step } = Steps;
 const { Dragger } = Upload;
 
 export default ({ id }) => {
+  const [value, setValue] = React.useState(1);
+
+  const onChange = e => {
+    console.log('radio checked', e.target.value);
+    setValue(e.target.value);
+  };
+
+  const data = [
+    ['2016-8-10', 256],
+    ['2016-8-11', 556],
+    ['2016-8-12', 756],
+    ['2016-8-13', 550],
+    ['2016-8-14', 210],
+    ['2016-8-15', 310],
+    ['2016-8-16', 414],
+    ['2016-8-17', 304],
+    ['2016-8-18', 104],
+    ['2016-10-10', 100],
+    ['2016-10-11', 120],
+    ['2016-10-12', 123],
+    ['2016-10-13', 523],
+    ['2016-10-14', 223],
+    ['2016-10-15', 343],
+    ['2016-10-16', 440],
+    ['2016-10-17', 540],
+    ['2016-10-18', 500],
+    ['2017-10-10', 200],
+    ['2017-10-11', 560],
+    ['2017-10-12', 750],
+    ['2017-10-13', 580],
+    ['2017-10-14', 250],
+    ['2017-10-15', 300],
+    ['2017-10-16', 450],
+    ['2017-10-17', 300],
+    ['2017-10-18', 100],
+  ]
   const props = {
     name: 'file',
     multiple: true,
@@ -31,6 +67,37 @@ export default ({ id }) => {
   };
   const steps = [
     {
+      title: '选择要生成的图表类型',
+      content: <div>
+        <ProCard direction="column" ghost gutter={[0, 16]}>
+          <ProCard gutter={16} ghost style={{ minHeight: 200, marginBottom: '15px', marginTop: '15px' }}>
+            <ProCard colSpan={8} >
+              <RenderPieChart id="pie" data={[
+                { value: 1048, name: 'Search Engine' },
+                { value: 735, name: 'Direct' },
+                { value: 580, name: 'Email' },
+                { value: 484, name: 'Union Ads' },
+                { value: 300, name: 'Video Ads' }
+              ]} />
+            </ProCard>
+            <ProCard colSpan={8} >
+              <RenderIncreaseChart id='111' data={data} />
+            </ProCard>
+
+            <ProCard colSpan={8} >
+              <RenderChart id='222' data={data} />
+            </ProCard>
+          </ProCard>
+          <Radio.Group onChange={onChange} style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }} value={value}>
+            <Radio value={1}>PieChart</Radio>
+            <Radio value={2}>IncreaseChart</Radio>
+            <Radio value={3}>NormalChart</Radio>
+          </Radio.Group>
+
+        </ProCard>
+      </div>
+    },
+    {
       title: '上传文件',
       content: <div>
         <br />
@@ -44,11 +111,7 @@ export default ({ id }) => {
           </p>
         </Dragger>
         <br />
-      </div>,
-    },
-    {
-      title: '选择要生成的图表类型',
-      content: 'Second-content',
+      </div>
     },
     {
       title: '预览',
@@ -66,76 +129,6 @@ export default ({ id }) => {
     setCurrent(current - 1);
   };
 
-  const data = [
-    ['2016-4-10', 250],
-    ['2016-4-11', 550],
-    ['2016-4-12', 750],
-    ['2016-4-13', 550],
-    ['2016-4-14', 450],
-    ['2016-4-15', 350],
-    ['2016-4-16', 450],
-    ['2016-4-17', 150],
-    ['2016-4-18', 150],
-
-    ['2016-6-10', 238],
-    ['2016-6-11', 538],
-    ['2016-6-12', 738],
-    ['2016-6-13', 530],
-    ['2016-6-14', 230],
-    ['2016-6-15', 340],
-    ['2016-6-16', 447],
-    ['2016-6-17', 347],
-    ['2016-6-18', 147],
-
-    ['2016-8-10', 256],
-    ['2016-8-11', 556],
-    ['2016-8-12', 756],
-    ['2016-8-13', 550],
-    ['2016-8-14', 210],
-    ['2016-8-15', 310],
-    ['2016-8-16', 414],
-    ['2016-8-17', 304],
-    ['2016-8-18', 104],
-    ['2016-10-10', 100],
-    ['2016-10-11', 120],
-    ['2016-10-12', 123],
-    ['2016-10-13', 523],
-    ['2016-10-14', 223],
-    ['2016-10-15', 343],
-    ['2016-10-16', 440],
-    ['2016-10-17', 540],
-    ['2016-10-18', 500],
-
-    ['2017-10-10', 200],
-    ['2017-10-11', 560],
-    ['2017-10-12', 750],
-    ['2017-10-13', 580],
-    ['2017-10-14', 250],
-    ['2017-10-15', 300],
-    ['2017-10-16', 450],
-    ['2017-10-17', 300],
-    ['2017-10-18', 100],
-
-    ['2018-10-10', 200],
-    ['2018-10-11', 560],
-    ['2018-10-12', 750],
-    ['2018-10-13', 580],
-    ['2018-10-14', 250],
-    ['2018-10-15', 300],
-    ['2018-10-16', 450],
-    ['2018-10-17', 300],
-    ['2018-10-18', 100],
-
-    ['2019-10-10', 200],
-    ['2019-10-11', 560],
-    ['2019-10-12', 750],
-    ['2019-10-13', 580],
-    ['2019-10-14', 250],
-    ['2019-10-15', 300],
-    ['2019-10-16', 450],
-    ['2019-10-17', 300],
-    ['2019-10-18', 100]
-  ]
   return (
     <div
       style={{
@@ -152,30 +145,11 @@ export default ({ id }) => {
               breadcrumbName: '当前页面',
             },
             ],
-          },
-          extra: [
-            <Button key="1" onClick={() => {
-
-            }}>
-              <a href='/模板1.xlsx'>
-                下载模板
-              </a>
-            </Button>,
-            <Dropdown
-              key="dropdown"
-              trigger={['click']}
-              overlay={
-                <Menu>
-                </Menu>
-              }
-            >
-              <Button key="4" style={{ padding: '0 8px' }}>
-                <EllipsisOutlined />
-              </Button>
-            </Dropdown>,
-          ],
+          }
         }}
-        tabBarExtraContent="测试页面"
+        tabBarExtraContent={<a href='/模板1.xlsx'>
+          下载模板
+        </a>}
         tabList={[{
           tab: '基本信息',
           key: 'base',
@@ -216,24 +190,6 @@ export default ({ id }) => {
               )}
             </div>
           </ProCard>
-          <ProCard gutter={16} ghost style={{ minHeight: 200, marginBottom: '15px', marginTop: '15px' }}>
-            <ProCard colSpan={16} >
-              <RenderIncreaseChart id='111' data={data} />
-            </ProCard>
-            <ProCard colSpan={8} >
-              <RenderPieChart id="pie" data={[
-                { value: 1048, name: 'Search Engine' },
-                { value: 735, name: 'Direct' },
-                { value: 580, name: 'Email' },
-                { value: 484, name: 'Union Ads' },
-                { value: 300, name: 'Video Ads' }
-              ]} />
-            </ProCard>
-
-          </ProCard>
-          <ProCard colSpan={24} >
-            <RenderChart id='222' data={data} />
-          </ProCard>
         </ProCard>
       </PageContainer>
     </div>
@@ -244,7 +200,7 @@ const RenderIncreaseChart = ({ id, data }) => {
   let xAxisData: number[] = []
   const series = [{
     type: 'line',
-    name: 'name',
+    name: '模拟数据',
     data: data.map((item: any[]) => {
       xAxisData.push(+moment(item[0]))
       return [+moment(item[0]), item[1]]
@@ -298,14 +254,15 @@ const RenderIncreaseChart = ({ id, data }) => {
     config={option}
     id={id}
     zoomTool
-    downloadButton />
+  // downloadButton
+  />
 }
 
 const RenderChart = ({ id, data }) => {
   let xAxisData: number[] = []
   const series = [{
-    type: 'line',
-    name: 'name',
+    type: 'bar',
+    name: '模拟数据',
     data: data.map((item: any[]) => {
       xAxisData.push(+moment(item[0]))
       return [+moment(item[0]), item[1]]
@@ -334,7 +291,7 @@ const RenderChart = ({ id, data }) => {
         nameGap: 10,
         axisLabel: {
           inside: true,
-          formatter: '{value}%',
+          formatter: '{value}',
           z: 999
         },
         position: 'right',
@@ -343,14 +300,14 @@ const RenderChart = ({ id, data }) => {
       },
       grid: {
         ...basicConfig.grid,
-        top: 40,
+        top: 60,
         left: 60,
         right: 30,
-        bottom: 100
+        bottom: 80
       },
       dataZoom: {
         ...basicConfig.dataZoom,
-        bottom: 34,
+        bottom: 19,
         height: 26,
         labelFormatter: (value, valueStr) => {
           return moment(parseInt(valueStr, 10)).format('YYYY-MM-DD')
@@ -360,6 +317,11 @@ const RenderChart = ({ id, data }) => {
       series,
       tooltip: {
         trigger: 'axis',
+      },
+      legend: {
+        icon: 'circle',
+        type: 'scroll',
+        top: 25
       }
     }
   }
@@ -367,8 +329,9 @@ const RenderChart = ({ id, data }) => {
     getConfig={getConfig}
     id={id}
     zoomTool
-    xAxisType='time'
-    downloadButton />
+    // xAxisType='time'
+    downloadButton={false}
+  />
 }
 
 const RenderPieChart = ({ id, data }) => {

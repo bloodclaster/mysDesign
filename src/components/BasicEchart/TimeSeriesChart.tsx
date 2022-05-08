@@ -35,14 +35,10 @@ export const formatterNumber = (value: number) => {
 }
 const defaultToolTipFormater = (item) =>
   `<div><span>${item.marker}${item.seriesName
-  }:</span> <span style="float:right;">${Number(item.value[1]).toFixed(
-    2
-  )}%</span></div>`
+  }:</span> <span style="float:right;">${Number(item.value[1]).toFixed(2)}</span></div>`
 const percentFormatter = (item) => {
   return `<div><span>${item.marker}${item.seriesName
-    }: </span> <span style="float:right;">${item.value[2].toFixed(
-      2
-    )}(${item.change.toFixed(2)}%)</span></div>`
+    }: </span> <span style="float:right;">${item.value[2].toFixed(2)}(${item.change.toFixed(2)})</span></div>`
 }
 const getChange = (item, datalist, startValue) => {
   let serieStart = null,
@@ -244,7 +240,7 @@ const TimeSeriesChart = ({
         nameGap: 10,
         axisLabel: {
           inside: true,
-          formatter: '{value}%',
+          formatter: '{value}',
         },
         position: 'left',
         type: 'value',
