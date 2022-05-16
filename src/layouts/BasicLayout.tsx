@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'braft-editor/dist/index.css'
-import { Button, Menu } from 'antd';
-import { history, Link } from 'umi';
-import BraftEditor from 'braft-editor'
-import { getclassMessage, getMessage } from '@/services/home';
+import { Menu } from 'antd';
+import { Link } from 'umi';
+import { getMessage } from '@/services/home';
 const BasicLayout = (props) => {
 
   const [inlogin, setinlogin] = useState(false)

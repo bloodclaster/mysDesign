@@ -1,7 +1,5 @@
-import { history, Link } from 'umi';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { getMessage, getclassMessage, getvidioMessage } from "@/services/home"
-import { Avatar, Button, Menu, Row, Col } from 'antd';
+import { getclassMessage } from "@/services/home"
+import { Menu } from 'antd';
 import { memo, useEffect, useState } from "react";
 import MyCard from '@/components/MyCard';
 import Header from '../Header';

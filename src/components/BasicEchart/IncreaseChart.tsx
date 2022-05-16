@@ -1,7 +1,7 @@
 import { useState, memo, useCallback, useEffect, useMemo } from 'react'
 import classnames from 'classnames'
 import styles from './index.less'
-import { Card } from 'antd'
+import { Card, DatePicker } from 'antd'
 import moment from 'moment'
 import { uniq, cloneDeep } from 'lodash'
 import EchartsView from '../EchartsView'
@@ -230,7 +230,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
         if (index === 0) return item
         return {
           ...item,
-          data: cloneDeep(xAxisData).slice(startValue, endValue + 1)
+          data: uniq(cloneDeep(xAxisData).slice(startValue, endValue + 1))
         }
       }),
       ...opt
@@ -251,7 +251,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
     }
   })
 
-  let xAxisData = config.xAxis.data ? config.xAxis.data.sort((a: number, b: number) => a - b) : []
+  let xAxisData = config.xAxis.data ? uniq(config.xAxis.data.sort((a: number, b: number) => a - b)) : []
 
   if (!config.xAxis.data) {
     config.series.forEach((serie: any) =>
@@ -261,7 +261,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
         }
       })
     )
-    xAxisData = xAxisData.sort((a: number, b: number) => a - b)
+    xAxisData = uniq(xAxisData.sort((a: number, b: number) => a - b))
   }
   if (config.markAreaxAxisData) {
     config.markAreaxAxisData.forEach((item: number) => {
