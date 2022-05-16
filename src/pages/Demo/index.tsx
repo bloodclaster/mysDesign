@@ -218,23 +218,11 @@ export default ({ id }) => {
     <div
       style={{
         background: '#F5F7FA',
-        margin: 24
+        margin: 24,
+        height: '100%'
       }}
     >
       <PageContainer
-        header={{
-          title: 'base test demo',
-          ghost: true,
-        }}
-        tabList={[{
-          tab: '上传',
-          key: 'base',
-          closable: false,
-        }, {
-          tab: '历史',
-          key: 'history',
-          closable: false,
-        }]}
         tabProps={{
           type: 'editable-card',
           hideAdd: true,
