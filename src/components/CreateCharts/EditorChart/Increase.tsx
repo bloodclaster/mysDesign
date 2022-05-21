@@ -42,9 +42,9 @@ const RenderChart = ({ id, data, downloadButton = false, yAxisName, stack, zoomT
     },
     grid: {
       top: 40,
-      left: 60,
+      left: 50,
       right: 30,
-      bottom: 100
+      bottom: 94
     },
     dataZoom: {
       bottom: 34,

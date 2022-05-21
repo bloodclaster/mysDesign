@@ -10,7 +10,8 @@ export const isUrl = (path: string): boolean => reg.test(path);
 export const getPageQuery = () => parse(window.location.href.split('?')[1]);
 
 function loadOcgaasUser() {
-  try {let a = localStorage.getItem('_kym_user_cache_') || localStorage.getItem('_user_cache_');
+  try {
+    let a = localStorage.getItem('_kym_user_cache_') || localStorage.getItem('_user_cache_');
     let b = a.length;
     b % 4 !== 0 && (a = a.padEnd(b + 4 - (b % 4), ' '));
     try {
@@ -34,7 +35,6 @@ function loadOcgaasUser() {
 
 export function getToken() {
   let token = localStorage.getItem('token');
-  console.log(localStorage)
   let ocgaasUser = loadOcgaasUser();
   if (ocgaasUser) {
     ocgaasUser = JSON.parse(ocgaasUser);

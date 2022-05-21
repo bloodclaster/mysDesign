@@ -11,11 +11,6 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
   const [picker, setpicker] = useState(datePicker)
   const [chart, setCart] = useState(null)
   const Btns = ['3m', 'YTD', '1y', '3y', 'All']
-  const color = ["#f65454", "#50c2ee", "#45ee49", "#180d04", "#f8e71c", "#e75317", "#EB8FC9", "#f8e8f9",
-    "#BD3E66", "#BFE9DF", "#D7BE10", "#00A4BB", "#AA6E91", "#A5AC61", "#C13E1F", "#984597", "#DB9988",
-    "#46A112", "#FB1B0A", "#F1D9A2", "#C9CEEB", "#071B5E", "#B93FD9", "#024FB1", "#F27BA7", "#D95BB8",
-    "#6004DE", "#64D35E", "#BFC4F3", "#C4E413", "#A40BC1", "#E57424"]
-  // window.__systemSettings && window.__systemSettings.chartColors
   const findIndex = (allTimes: string | any[], time: string | number, type = 'start') => {
     if (time < allTimes[0])
       return 0
@@ -315,7 +310,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
     legend: {
       ...config.legend,
       icon: 'circle',
-      bottom: 5,
+      bottom: 11,
       type: 'scroll',
       data: [...legendData],
       selected: selected
@@ -367,17 +362,6 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
             yAxisIndex: 1,
             realData: RealDataList[index],
             animation: false,
-            lineStyle: {
-              normal: {
-                color: color[index]
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: color[index]
-              }
-            },
-
           }
         else
           return {
@@ -388,17 +372,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
             xAxisIndex: 1,
             yAxisIndex: 1,
             realData: RealDataList[index],
-            animation: false,
-            lineStyle: {
-              normal: {
-                color: color[index]
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: color[index]
-              }
-            },
+            animation: false
           }
       })
     ]
@@ -414,17 +388,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
         yAxisIndex,
         xAxisIndex: 1,
         animation: false,
-        exOption: true,
-        lineStyle: {
-          normal: {
-            color: color[dataList.length + index]
-          }
-        },
-        itemStyle: {
-          normal: {
-            color: color[dataList.length + index]
-          }
-        },
+        exOption: true
       })
     })
   }
@@ -454,7 +418,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
   if (title) {
     return [<div>
       {chart && datePicker && <DatePicker.RangePicker
-        size='small' style={{ position: 'absolute', right: '40px', zIndex: 100 }}
+        size='small' style={{ position: 'absolute', right: '30px', zIndex: 100, top: '25px' }}
         value={[moment(picker[0]), moment(picker[1])]}
         onChange={(value) => {
           if (value[0] && value[1]) {
@@ -522,7 +486,7 @@ const IncreaseChart = ({ getCSV, id, zoomTool, config, className, chartStyle, ev
   }
   return [<div>
     {chart && datePicker && <DatePicker.RangePicker
-      size='small' style={{ position: 'absolute', right: '40px', zIndex: 100 }}
+      size='small' style={{ position: 'absolute', right: '80px', zIndex: 100, top: '31px' }}
       value={[moment(picker[0]), moment(picker[1])]}
       onChange={(value) => {
         if (value[0] && value[1]) {
