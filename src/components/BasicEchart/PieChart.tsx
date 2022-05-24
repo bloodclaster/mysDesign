@@ -86,7 +86,6 @@ const PieChart = ({ id, getCSV, getConfig, className, downloadButton = true, cha
         left: 'left',
       },
       series: [],
-      backgroundColor: '#FFFFFF',
     })
     setChartConfig(config)
   }, [getConfig, setChartConfig])

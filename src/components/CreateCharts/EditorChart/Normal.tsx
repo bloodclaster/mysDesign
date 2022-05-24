@@ -38,6 +38,11 @@ const RenderChart = ({ id, data, downloadButton = false, legend = true, yAxisNam
           inside: true,
           formatter: '{value}',
         },
+        splitLine: {
+          lineStyle: {
+            opacity: 0.3
+          }
+        },
         position: 'right',
         type: 'value',
         nameRotate: 270,

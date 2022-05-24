@@ -6,6 +6,7 @@ const RenderChart = ({ id, data, downloadButton = false, yAxisName, stack, zoomT
   let xAxisData: number[] = []
   const series = data.map(item => ({
     type: 'line',
+    smooth: true,
     name: item.name,
     data: item.data.map((item: any[]) => {
       xAxisData.push(+moment(item[0]))
@@ -35,6 +36,11 @@ const RenderChart = ({ id, data, downloadButton = false, yAxisName, stack, zoomT
       axisLabel: {
         inside: true,
         formatter: '{value}%',
+      },
+      splitLine: {
+        lineStyle: {
+          opacity: 0.3
+        }
       },
       position: 'right',
       type: 'value',

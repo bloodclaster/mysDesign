@@ -42,7 +42,9 @@ export default ({ }) => {
             sethead(userInf.head)
             setname(userInf.nickname)
           }} style={{ marginLeft: '34px' }}>
-            修改用户名及头像</Button>}
+            修改用户名及头像</Button>}<Button danger size='small' onClick={() => {
+            }} style={{ marginLeft: '34px' }}>
+            退出登录</Button>
         </div>
       </div>
     </div>
@@ -52,7 +54,7 @@ export default ({ }) => {
     }}>
       <Menu selectedKeys={[value]} style={{ width: '100%', marginTop: '60px' }} mode="horizontal" >
         <Item onClick={() => setvalue('set')} style={{ marginRight: '15px' }} key='set'>账号设置</Item>
-        <Item onClick={() => setvalue('download')} style={{ marginRight: '15px' }} key='download'>浏览记录</Item>
+        {/* <Item onClick={() => setvalue('download')} style={{ marginRight: '15px' }} key='download'>浏览记录</Item> */}
         <Item onClick={() => setvalue('historyupload')} style={{ marginRight: '15px' }} key='historyupload'>上传记录</Item>
       </Menu>
       {value === 'set' && <div style={{ margin: '12px' }}><Info /></div>}

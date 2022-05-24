@@ -103,7 +103,6 @@ const CategoryChart = ({ id, getCSV, getConfig, className, zoomTool, downloadBut
         }
       },
       series: [],
-      backgroundColor: '#FFFFFF'
     }
     const config = getConfig(basicConfig)
     let forMatterList = []

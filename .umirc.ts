@@ -13,6 +13,9 @@ export default defineConfig({
     { path: '/home/video', component: 'home/videoPage' },
     { path: '/home/editor', component: 'user/editor' },
     { path: '/home/upload', component: 'user/upload' },
+    { path: '/create', component: 'create' },
+    { path: '/history', component: 'HistoryView' },
+    // CreateCharts HistoryView
     {
       path: '/', component: 'index',
       routes: [

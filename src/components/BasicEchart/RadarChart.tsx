@@ -32,15 +32,7 @@ const getRadarChartCsv = (series, xAxis, yAxis, radar) => {
  * @param {Boolean} downloadButton 是否显示下载按钮，默认显示
  * @param {Object}  chartStyle   图表的样式，用于固定图表大小
  */
-const RadarChart = ({
-  id,
-  getCSV,
-  getConfig,
-  className,
-  zoomTool,
-  downloadButton = true,
-  chartStyle,
-  events,
+const RadarChart = ({ id, getCSV, getConfig, className, zoomTool, downloadButton = true, chartStyle, events,
 }) => {
   const [chart, setCart] = useState(null)
   const [chartConfig, setChartConfig] = useState(null)
@@ -66,7 +58,6 @@ const RadarChart = ({
       },
       radar: [],
       series: [],
-      backgroundColor: '#FFFFFF',
     })
     let newSeries = [],
       indicator = config.radar[0].indicator,

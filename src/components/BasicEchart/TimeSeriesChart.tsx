@@ -250,7 +250,6 @@ const TimeSeriesChart = ({
       xAxis,
       dataZoom,
       series: [],
-      backgroundColor: '#FFFFFF',
     }
     const config = getConfig(basicConfig)
     let forMatterList = [],

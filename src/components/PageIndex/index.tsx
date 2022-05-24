@@ -145,3 +145,71 @@ export const RightBottomBox = styled.div`
     }
   }
 `;
+
+export const TopBox = styled.div`
+  .top_box {
+    display: flex;
+    justify-content: center;
+
+    .top_decoration10 {
+      position: relative;
+      height: 2.2rem;
+    }
+
+    .top_decoration10_reverse {
+      transform: rotateY(180deg);
+    }
+
+    .title-box {
+      display: flex;
+      justify-content: center;
+      height: 3rem;
+
+      .top_decoration8 {
+        width: 9.5rem;
+      }
+
+      .title {
+        position: relative;
+        width: 20rem;
+        text-align: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        .title-text {
+          font-size: 1.5rem;
+          width: 20rem;
+          position: absolute;
+          bottom: 10px;
+          left: 50%;
+          color: #fff;
+          transform: translate(-50%);
+        }
+
+        .top_decoration6 {
+          width: 14.125rem;
+          height: 0.4rem;
+        }
+
+        .title-bototm {
+          position: absolute;
+          bottom: -0.375rem;
+          left: 50%;
+          transform: translate(-50%);
+        }
+      } // end title
+    } // end title-box
+  } // end top_box
+`;
+
+export const TimeBox = styled.div`
+  position: absolute;
+  right: 0.375rem;
+  top: 0.5rem;
+  text-align: right;
+  color: #fff;
+  h3{
+    font-size: 0.425rem;
+    color: #bcdcff;
+  }
+`;

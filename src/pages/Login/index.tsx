@@ -16,7 +16,7 @@ export default (props) => {
   const handleClick = (e: { key: any }) => { setcurrent(e.key) };
   return (<div>
     <PageHeader
-      title="课 程 群"
+      // title="课 程 群"
       subTitle="Login in"
       breadcrumb={{}}
       onBack={() => window.history.back()}
@@ -30,7 +30,7 @@ export default (props) => {
     />
     <div ></div>
     <Row gutter={24}>
-      <Col span={16} order={1}>
+      <Col span={8} order={1}>
         <div style={{
           // backgroundColor: 'yellow',
           width: '100%', height: '600px'
