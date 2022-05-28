@@ -11,6 +11,8 @@ import RenderLineChart from './EditorChart/RenderLineChart';
 import RenderIncreaseCharts from './EditorChart/RenderIncreaseCharts';
 import TextArea from 'antd/lib/input/TextArea';
 import { insertHistory } from '@/services/demo';
+import { data, pie } from './data'
+import RenderRadar from './EditorChart/RenderRadar';
 const { Step } = Steps;
 const { Dragger } = Upload;
 
@@ -23,35 +25,6 @@ export default ({ }) => {
   const [type, settype] = useState('PieChart')
   const [remark, setremark] = useState('')
   const [uploadData, setuploadData] = useState({})
-  const data = [
-    ['2016-8-10', 256],
-    ['2016-8-11', 556],
-    ['2016-8-12', 756],
-    ['2016-8-13', 550],
-    ['2016-8-14', 210],
-    ['2016-8-15', 310],
-    ['2016-8-16', 414],
-    ['2016-8-17', 304],
-    ['2016-8-18', 104],
-    ['2016-10-10', 100],
-    ['2016-10-11', 120],
-    ['2016-10-12', 123],
-    ['2016-10-13', 523],
-    ['2016-10-14', 223],
-    ['2016-10-15', 343],
-    ['2016-10-16', 440],
-    ['2016-10-17', 540],
-    ['2016-10-18', 500],
-    ['2017-10-10', 200],
-    ['2017-10-11', 560],
-    ['2017-10-12', 750],
-    ['2017-10-13', 580],
-    ['2017-10-14', 250],
-    ['2017-10-15', 300],
-    ['2017-10-16', 450],
-    ['2017-10-17', 300],
-    ['2017-10-18', 100],
-  ]
 
   useEffect(() => {
     if (type === 'PieChart')
@@ -89,32 +62,38 @@ export default ({ }) => {
   const steps = [
     {
       title: '选择要生成的图表类型',
-      content: <div>
+      content: <div style={{ width: '100%', overflow: 'auto' }}>
         <ProCard direction="column" ghost gutter={[0, 16]}>
-          <ProCard gutter={16} ghost style={{ minHeight: 200, marginBottom: '15px', marginTop: '15px' }}>
-            <ProCard colSpan={8} >
-              <RenderPieChart id="pie" space={space} data={[
-                { value: 1048, name: 'Search' },
-                { value: 735, name: 'Direct' },
-                { value: 580, name: 'Email' },
-                { value: 484, name: 'Union Ads' },
-                { value: 300, name: 'Video Ads' }
-              ]} legend downloadButton={false} />
-            </ProCard>
-            <ProCard colSpan={8} >
-              <RenderIncreaseChart id='111' data={data} />
-            </ProCard>
-            <ProCard colSpan={8} >
-              <RenderChart id='222' data={data} downloadButton={false} yAxisName={undefined} type={'bar'} dataName={undefined} />
-            </ProCard>
-          </ProCard>
           <Radio.Group
             onChange={(e) => setValue(e.target.value)}
-            style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}
+            style={{ flexDirection: 'row', marginTop: 20, display: 'flex', width: 1800 }}
             value={value}
-          > <Radio onChange={() => { settype('PieChart') }} value={1}><a href="/pieChart.xlsx">点击下载PieChart模板</a></Radio>
-            <Radio onChange={() => { settype('IncreaseChart') }} value={2}><a href="/normalchart.xlsx">点击下载IncreaseChart模板</a></Radio>
-            <Radio onChange={() => { settype('NormalChart') }} value={3}><a href="/normalchart.xlsx">点击下载NormalChart模板</a></Radio>
+          >
+            <ProCard style={{ width: 450 }}  >
+              <RenderIncreaseChart id='111' data={data} />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Radio onChange={() => { settype('IncreaseChart') }} value={2}><a href="/normalchart.xlsx">点击下载IncreaseChart模板</a></Radio>
+              </div>
+            </ProCard>
+            <ProCard style={{ width: 450 }}  >
+              <RenderChart id='222' data={data} downloadButton={false} yAxisName={undefined} type={'bar'} dataName={undefined} />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Radio onChange={() => { settype('NormalChart') }} value={3}><a href="/normalchart.xlsx">点击下载NormalChart模板</a></Radio>
+              </div>
+            </ProCard>
+
+            <ProCard style={{ width: 450 }}  >
+              <RenderPieChart id="pie" space={space} data={pie} legend downloadButton={false} />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Radio onChange={() => { settype('PieChart') }} value={1}><a href="/pieChart.xlsx">点击下载PieChart模板</a></Radio>
+              </div>
+            </ProCard>
+            <ProCard style={{ width: 450 }}  >
+              <RenderRadar />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Radio onChange={() => { settype('RadarChart') }} value={1}><a href="/normalchart.xlsx">点击下载RadarChart模板</a></Radio>
+              </div>
+            </ProCard>
           </Radio.Group>
         </ProCard>
       </div>
@@ -129,7 +108,6 @@ export default ({ }) => {
           </p>
           <p className="ant-upload-text">点击或者将文件拖拽至此处以上传文件</p>
           <p className="ant-upload-hint">
-            {/* 。。。 */}
           </p>
         </Dragger>
         <br />

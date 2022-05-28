@@ -1,5 +1,5 @@
 import { downloadFile } from "@/services/video";
-import { Upload, message, Button, Pagination, Spin, Table, Popconfirm, Radio } from "antd";
+import { Upload, message, Button, Pagination, Spin, Table, Popconfirm, Radio, Checkbox } from "antd";
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import { memo, useEffect, useState } from "react";
 import { uploadHistoryMessage } from '@/services/video'
@@ -10,15 +10,16 @@ import MyCard from "@/components/MyCard";
 const historyUpload = ({ }) => {
   const N: any = null
   const [page, setpage] = useState(1)
-  const [history, sethistory] = useState(N)
+  const [historys, sethistorys] = useState(N)
   const [loading, setloading] = useState(true)
+  const [list, setlist] = useState([])
 
   const loadHistory = () => {
     setloading(true)
     uploadHistoryMessage({}).then((res) => {
       if (res.data) {
         console.log(res.data)
-        sethistory(res.data)
+        sethistorys(res.data)
         setloading(false)
       } else {
         message.error(res.message)
@@ -34,7 +35,17 @@ const historyUpload = ({ }) => {
     title: '选择',
     // fixed: 'left',
     width: '90px',
-    render: () => { return <Radio /> }
+    dataIndex: 'id',
+    render: (text: any, record: any, index: any) => {
+      return <Checkbox
+        onChange={(e) => {
+          console.log(list, e.target.value)
+          if (e.target.checked)
+            setlist([...list, e.target.value])
+          else
+            setlist(list.filter(id => id !== text))
+        }} key={text} value={text} />
+    }
   }, {
     title: '名称',
     dataIndex: 'name'
@@ -56,45 +67,39 @@ const historyUpload = ({ }) => {
 
   return (
     <Spin tip="Loading..." size="large" style={{ width: '100%', height: '100%', marginTop: '60px' }} spinning={loading}>
-      {/* {history && [<div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', margin: 12 }}>
-        {history.slice((page - 1) * 10, page * 10).map((item: any) => {
-          return <div>
-            <DownloadCard
-              loadHistory={loadHistory}
-              uid={item.id}
-              item={item}
-            />
-          </div>
-        })}
-      </div>,
-      <Pagination
-        style={{ float: 'right', marginRight: '18px' }}
-        defaultCurrent={1} total={history.length}
-        defaultPageSize={12} onChange={(page, pageSize) => {
-          setpage(page)
-        }}
-      />]} */}
       <Table size='small' columns={column} dataSource={[{
-        name: '测试用图1'
+        name: '测试用图1',
+        id: '001'
       }, {
-        name: '测试用图2'
+        name: '测试用图2',
+        id: '002'
       }, {
-        name: '测试用图3'
+        name: '测试用图3',
+        id: '003'
       }, {
-        name: '测试用图4'
+        name: '测试用图4',
+        id: '004'
       }, {
-        name: '测试用图5'
+        name: '测试用图5',
+        id: '005'
       }, {
-        name: '测试用图6'
+        name: '测试用图6',
+        id: '006'
       }, {
-        name: '测试用图7'
+        name: '测试用图7',
+        id: '007'
       }, {
-        name: '测试用图8'
+        name: '测试用图8',
+        id: '008'
       }]} />
       <div >
         <div style={{ float: 'right' }}>
-          <Button style={{ margin: 12 }}>生成报表</Button>
-          <Button style={{ margin: 12 }}>生成数据大屏</Button>
+          <Button onClick={() => {
+            history.push(`/history?list=${list}`)
+          }} style={{ margin: 12 }}>生成报表</Button>
+          <Button onClick={() => {
+
+          }} style={{ margin: 12 }}>生成数据大屏</Button>
         </div>
       </div>
     </Spin >

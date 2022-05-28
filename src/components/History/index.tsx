@@ -6,8 +6,8 @@ import ProCard from "@ant-design/pro-card";
 import { PageContainer } from "@ant-design/pro-layout";
 import { useEffect, useState } from "react";
 
-export default ({ }) => {
-  
+export default ({ list }) => {
+  console.log(list)
   const [data, setdata] = useState([])
   useEffect(() => {
     historyMessage({}).then(res => {

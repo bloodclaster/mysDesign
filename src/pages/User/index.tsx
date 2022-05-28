@@ -19,10 +19,12 @@ export default ({ }) => {
   const [head, sethead] = useState(N)
   const [name, setname] = useState(N)
   const loadInfo = () => {
-    getMessage({}).then((message) => {
-      setuserInfo(message.data)
-      sethead(message.data.head)
-      setname(message.data.nickname)
+    getMessage({}).then((res) => {
+      if (res.code === 200) {
+        setuserInfo(res.data)
+        sethead(res.data.head)
+        setname(res.data.nickname)
+      }
     })
   }
   useEffect(() => {

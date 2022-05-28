@@ -8,13 +8,13 @@ export default defineConfig({
   routes: [
     { path: '/login', component: 'login' },
     { path: '/demo', component: 'demo' },
+    { path: '/history', component: 'HistoryView' },
     { path: '/home', component: 'home' },
     { path: '/user', component: 'user' },
     { path: '/home/video', component: 'home/videoPage' },
     { path: '/home/editor', component: 'user/editor' },
     { path: '/home/upload', component: 'user/upload' },
     { path: '/create', component: 'create' },
-    { path: '/history', component: 'HistoryView' },
     // CreateCharts HistoryView
     {
       path: '/', component: 'index',

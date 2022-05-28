@@ -9,6 +9,7 @@ import moment from "moment";
 import RadarChart from "@/components/BasicEchart/RadarChart";
 import RenderPieChart from "@/components/CreateCharts/EditorChart/RenderPieChart";
 import NormalChart from "@/components/BasicEchart/NormalChart";
+import RenderRadar from "@/components/CreateCharts/EditorChart/RenderRadar";
 
 export default ({ }) => {
 
@@ -27,41 +28,6 @@ export default ({ }) => {
       settime(moment())
     }, 1000)
 
-  const [styleOption, setstyleOption] = useState(() => (baseConfig) => {
-    const seriesData = [
-      [0.7, '大盘价值'], [0.2, '大盘成长'], [0.8, '小盘价值'], [0.1, '小盘成长'], [0.4, '中盘价值'], [0.6, '中盘成长']
-    ]
-    return {
-      ...baseConfig,
-      series: [{
-        type: 'radar',
-        tooltip: {
-          show: false
-        },
-        areaStyle: {
-          opacity: 0
-        },
-        label: {
-          show: true,
-        },
-        z: 1,
-        data: [{ name: '风格', value: seriesData.map(item => { return Number(item[0]) }) }]
-      }],
-      radar: [{
-        radius: '75%',
-        center: ["50%", "47%"],
-        shape: 'circle',
-        indicator: seriesData.map(item => {
-          return { name: item[1], max: 1 }
-        })
-      }],
-      legend: {
-        itemWidth: 12,
-        itemHeight: 5,
-        bottom: 0
-      }
-    }
-  })
   const option = {
     title: {
       text: 'World Population'
@@ -89,7 +55,6 @@ export default ({ }) => {
       boundaryGap: [0, 0.01]
     },
     yAxis: {
-      
       type: 'category',
       data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World']
     },
@@ -106,7 +71,6 @@ export default ({ }) => {
       }
     ]
   };
-  console.log(styleOption)
   return (<IndexPageStyle>
     <Fragment>
       <TopBox >
@@ -261,13 +225,9 @@ export default ({ }) => {
       <LeftPage>
         <BorderBox12 style={{ height: 325, width: 395, marginLeft: 10 }}>
           <LeftTopBox className={styles.iconfont}>
-            {styleOption && <div style={{ height: 315, width: 415, paddingTop: 3 }}>
-              <RadarChart
-                id="style-chart"
-                getConfig={styleOption}
-                downloadButton={false}
-              />
-            </div>}
+            <div style={{ height: 315, width: 415, paddingTop: 3 }}>
+              <RenderRadar data={undefined} nameList={undefined} legend={undefined} />
+            </div>
             <br />
             <br />
             <br />
